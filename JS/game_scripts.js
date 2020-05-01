@@ -15,8 +15,7 @@ const phrases = [
 
 //return a random phrase from an array
 const getRandomPhraseAsArray = arr => {
-  //randomly choose phrase from phrases
-  //create var to store random number based on length of phrases
+  //randomly choose phrase from phrases create var to store random number based on length of phrases
   //use variable to select index inside of the arry
   let randPhrase = phrases[Math.floor(Math.random()*phrases.length)];
   //call this
@@ -27,23 +26,35 @@ const getRandomPhraseAsArray = arr => {
   //array should be a parameter
 }
 //to use this function you'll pass in the phrases array as an argument when you call the function.
-//example: getRandomPhraseAsArray(phrase);
-console.log(getRandomPhraseAsArray(phrases));
+const array = getRandomPhraseAsArray(phrases);
 
 //adds the letters of a string to the display
 //const addPhraseToDisplay = arr => {
-  //loops through array of characters
-//  for(i = 0; arr.length; i+= 1) {
-    //inside loop for [i]"each char in the array",
-    //create item list <li> = each char for items in array
-    //append list to #phrase <ul> in html
-        //if (<li> char is not equal to a space){
-            //add class "letter" to item
-      //} else {
-          //no class added
+    const ul = phrase.firstElementChild;
+    //loops through array of characters
+    for(i=0; array.length; i+=1){
+      //inside loop for [i]"each char in the array",
+      //create item list <li> = each char for items in array
+      if (i <= array.length){
+          const listChar = document.createElement('li');
+          listChar.textContent = array[i];
+          ul.appendChild(listChar);
+      } else {
+        break;
+      }
+    }
+ //}
+
+//addPhraseToDisplay(ul);
+
+  //addPhraseToDisplay(phrases);
+     //if (<li> char is not equal to a space){
+         //add class "letter" to item
+    //} else {
+       //no class added
     //}
-//  }
 //}
+
 
 //check if a letter is in the phrase
 //const checkLetter = button => {
