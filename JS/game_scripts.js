@@ -29,36 +29,62 @@ const getRandomPhraseAsArray = arr => {
 const array = getRandomPhraseAsArray(phrases);
 
 //adds the letters of a string to the display
-//const addPhraseToDisplay = arr => {
+const addPhraseToDisplay = arr => {
     const ul = phrase.firstElementChild;
     //loops through array of characters
     for(i=0; array.length; i+=1){
       //inside loop for [i]"each char in the array",
       //create item list <li> = each char for items in array
-      if (i <= array.length){
+      if (i < array.length){
+        //creates li element every itteration
           const listChar = document.createElement('li');
+          //stores the iterated array value into the li element
           listChar.textContent = array[i];
+          //appends the element to the unordered list
           ul.appendChild(listChar);
+            //checks if the li value has a space or letter
+            if(listChar.innerHTML !== " " ) {
+              //sets the class "letter" to the elements with letters
+              listChar.classList.add('letter');
+            } else {
+              listChar.classList.add('space');
+            }
+      } else {
+        //breaks out of the loop after every array value has been iterated
+        break;
+      }
+    }
+ }
+
+//call the function to create the list items
+addPhraseToDisplay(array);
+
+//check if a letter is in the phrase
+//const checkLetter = button => {
+  //get all of the:
+    //elements with the class "letter"
+    const letter = document.getElementsByClassName('letter');
+
+    //loop over the letter li's
+    for (i=0; letter.length; i+= 1) {
+      //need break so we don't just continue the loop
+      if (i < letter.length) {
+        //itterated console log test
+        console.log(letter[i]);
+        //check if match letter in the button player has chosen
+          //if there's a match:
+            //add "show" class to the list item containing that letter
+            //store letter inside Variable
+            const show = letter[i].classList.add('show');
+            //return letter Variable
+            //return show; //cant do this yet, not part of the function
+          //else {
+            //function returns null
+          //}    
       } else {
         break;
       }
     }
- //}
-
-//addPhraseToDisplay(ul);
-
-  //addPhraseToDisplay(phrases);
-     //if (<li> char is not equal to a space){
-         //add class "letter" to item
-    //} else {
-       //no class added
-    //}
-//}
-
-
-//check if a letter is in the phrase
-//const checkLetter = button => {
-
 //}
 
 //check if the game has been won or lost
