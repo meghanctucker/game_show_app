@@ -59,33 +59,7 @@ const addPhraseToDisplay = arr => {
 //call the function to create the list items
 addPhraseToDisplay(array);
 
-//check if a letter is in the phrase
-//const checkLetter = button => {
-  //get all of the:
-    //elements with the class "letter"
-    const letter = document.getElementsByClassName('letter');
 
-    //loop over the letter li's
-    for (i=0; letter.length; i+= 1) {
-      //need break so we don't just continue the loop
-      if (i < letter.length) {
-        //itterated console log test
-        console.log(letter[i]);
-        //check if match letter in the button player has chosen
-          //if there's a match:
-            //add "show" class to the list item containing that letter
-            //store letter inside Variable
-            const show = letter[i].classList.add('show');
-            //return letter Variable
-            //return show; //cant do this yet, not part of the function
-          //else {
-            //function returns null
-          //}    
-      } else {
-        break;
-      }
-    }
-//}
 
 //check if the game has been won or lost
 //const checkWin = () => {
@@ -99,6 +73,37 @@ btnReset.addEventListener('click', () => {
 });
 
 //listen for the onscreen keyboard to be clicked
-//qwerty.addEventListener('click', e => {
+qwerty.addEventListener('click', e => {
+  const checkLetter = button => {
+    //get all of the:
+      //elements with the class "letter"
+      const letter = document.getElementsByClassName('letter');
+      //loop over the letter li's
+      for (i=0; letter.length; i+= 1) {
+        //need break so we don't just continue the loop
+      //  if (i < letter.length) {
+          //itterated console log test
+          //console.log(letter[i]);
+          //check if match letter in the button player has chosen
+            if (letter[i].textContent === button.textContent){
+              //add "show" class to the list item containing that letter
+              //store letter inside Variable
+              const show = letter[i].classList.add('show');
+              //return letter Varaiable
+              const myLetter = letter[i].textContent;
+              console.log(myLetter);
+               //checkLetter(letterFound); //cant do this yet, not part of the function
+           } else {
+              return null;
+            }
+    //    } else {
+    //      break;
+    //    }
+      }
+  }
 
-//});
+    let letterFound = event.target;
+    let chosen = letterFound.classList.add('chosen');
+    checkLetter(letterFound);
+
+});
