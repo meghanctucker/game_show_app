@@ -32,10 +32,10 @@ const array = getRandomPhraseAsArray(phrases);
 const addPhraseToDisplay = arr => {
     const ul = phrase.firstElementChild;
     //loops through array of characters
-    for(i=0; array.length; i+=1){
+    for(i=0; i < array.length; i+=1){
       //inside loop for [i]"each char in the array",
       //create item list <li> = each char for items in array
-      if (i < array.length){
+    //  if (i < array.length){
         //creates li element every itteration
           const listChar = document.createElement('li');
           //stores the iterated array value into the li element
@@ -49,20 +49,40 @@ const addPhraseToDisplay = arr => {
             } else {
               listChar.classList.add('space');
             }
-      } else {
+      //} else {
         //breaks out of the loop after every array value has been iterated
-        break;
-      }
+      //  break;
+      //}
     }
  }
 
 //call the function to create the list items
 addPhraseToDisplay(array);
 
+const checkLetter = button => {
+  const letter = document.getElementsByClassName('letter');
+  const show = document.getElementsByClassName('show');
 
+    //loop over the letter li's
+  for (i=0; i<letter.length; i++) {
+        //check if match letter in the button player has chosen
+        if (letter[i].textContent === button.textContent){
+            //add "show" class to the list item containing that letter
+            const show = letter[i].classList.add('show');
+            //store letter inside Variable
+            //let myLetter = button.textContent;
+
+            //return letter Varaiable
+          //  return letterFound;
+         } else {
+
+          }
+        }
+     }
 
 //check if the game has been won or lost
 //const checkWin = () => {
+
 
 //}
 
@@ -74,36 +94,21 @@ btnReset.addEventListener('click', () => {
 
 //listen for the onscreen keyboard to be clicked
 qwerty.addEventListener('click', e => {
-  const checkLetter = button => {
-    //get all of the:
-      //elements with the class "letter"
-      const letter = document.getElementsByClassName('letter');
-      //loop over the letter li's
-      for (i=0; letter.length; i+= 1) {
-        //need break so we don't just continue the loop
-      //  if (i < letter.length) {
-          //itterated console log test
-          //console.log(letter[i]);
-          //check if match letter in the button player has chosen
-            if (letter[i].textContent === button.textContent){
-              //add "show" class to the list item containing that letter
-              //store letter inside Variable
-              const show = letter[i].classList.add('show');
-              //return letter Varaiable
-              const myLetter = letter[i].textContent;
-              console.log(myLetter);
-               //checkLetter(letterFound); //cant do this yet, not part of the function
-           } else {
-              return null;
-            }
-    //    } else {
-    //      break;
-    //    }
-      }
-  }
 
-    let letterFound = event.target;
-    let chosen = letterFound.classList.add('chosen');
-    checkLetter(letterFound);
+    //use event delegation to listen only to buttons on the keyboard
+    let button = event.target; //this still selects any button;
+    //add the "chosen" class to the button so the same letter can't be used twice
+    let chosen = button.classList.add('chosen'); //set attribute to "disabled"
+    //pass the button to the checkletter function
+    let myLetter = checkLetter(button);
+    //var letterFound = returned letter;
+    console.log(myLetter);
+      if(myLetter === null){
+          //remove heart here
+          //add one to the missed counter
+          missed += 1;
+          console.log(missed);
+      }
+      //call checkWin function
 
 });
