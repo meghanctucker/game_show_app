@@ -69,15 +69,16 @@ const checkLetter = button => {
   for (i=0; i<letter.length; i++) {
         //check if match letter in the button player has chosen
         if (letter[i].textContent === button.textContent){
+           //letter[i].style.backgroundColor = "yellow";
+           letter[i].style.transitionDuration = "4s";
             //add "show" class to the list item containing that letter
-            const show = letter[i].classList.add('show');
-            //store letter inside Variable
-            //let myLetter = button.textContent;
+             letter[i].classList.add('show');
+            //store letter inside Variable const show =
+              //return letter Varaiable
             letterFound = button.textContent;
-            //return letter Varaiable
-          //  return letterFound;
         }
         }
+        //  return letterFound;
         return letterFound;
      }
 
@@ -88,14 +89,15 @@ const checkWin = () => {
       overlay.classList.add('win');
       overlay.firstElementChild.textContent = "You've won!";
       overlay.style.display = "flex";
+      btnReset.textContent = "Try Again";
     //document.getElementsByClassName('win').style.display = 'block';
   }
 }
   else if(missed >= 5) {
-    console.log("you lost!");
     overlay.classList.add('lose');
     overlay.firstElementChild.textContent = "You've lost";
     overlay.style.display = "flex";
+    btnReset.textContent = "Try Again";
     //document.getElementsByClassName('win').style.display = 'block';
   }
 //()
@@ -104,33 +106,41 @@ const checkWin = () => {
 
 //attach an event listener to the start game button_reset
 btnReset.addEventListener('click', () => {
+  if (btnReset.textContent === "Try Again") {
+    overlay.style.display = 'none';
+    location.reload();
+
+  }
   //make overlay dissapear
   overlay.style.display = 'none';
+
 });
 
 //listen for the onscreen keyboard to be clicked
 qwerty.addEventListener('click', e => {
 
     //use event delegation to listen only to buttons on the keyboard
-    let buttons = event.target; //this target other things too (need to specify button)
-    //add the "chosen" class to the button so the same letter can't be used twice
-    let chosen = buttons.classList.add('chosen');
-     //set attribute to "disabled"
-     buttons.disabled = true;
-    //pass the button to the checkletter function
-    let myLetter = checkLetter(buttons);
-    //var letterFound = returned letter;
-    console.log(myLetter);
-      if(myLetter === null){
-          //remove heart here. create variable of the heart. replace the innerhtml of that thing to lostheart.png
-          //add one to the missed counter
-          missed += 1;
-          //missed is going to be the array # + 1 of the item in the heart scoreboard
-          //get the heart scorboard array and console it
-          console.log(missed);
-          let heart = scoreboard[missed-1].lastElementChild;
-          heart.src = "images/lostheart.png";
-      }
+    //let buttons = event.target;
+     if(e.target.tagName === 'BUTTON'){
+       const buttons = e.target;
+       //this target other things too (need to specify button)
+      //add the "chosen" class to the button so the same letter can't be used twice
+      let chosen = buttons.classList.add('chosen');
+       //set attribute to "disabled"
+       buttons.disabled = true;
+      //pass the button to the checkletter function
+      let myLetter = checkLetter(buttons);
+      //var letterFound = returned letter;
+        if(myLetter === null){
+            //remove heart here. create variable of the heart. replace the innerhtml of that thing to lostheart.png
+            //add one to the missed counter
+            missed += 1;
+            //missed is going to be the array # + 1 of the item in the heart scoreboard
+            //get the heart scorboard array and console it
+            let heart = scoreboard[missed-1].lastElementChild;
+            heart.src = "images/lostheart.png";
+        }
+     }
       //call checkWin function
       checkWin();
 
