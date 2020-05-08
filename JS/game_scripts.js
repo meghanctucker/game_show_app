@@ -70,7 +70,7 @@ const checkLetter = button => {
         //check if match letter in the button player has chosen
         if (letter[i].textContent === button.textContent){
            //letter[i].style.backgroundColor = "yellow";
-           letter[i].style.transitionDuration = "4s";
+           letter[i].style.transitionDuration = "3s";
             //add "show" class to the list item containing that letter
              letter[i].classList.add('show');
             //store letter inside Variable const show =
@@ -104,17 +104,7 @@ const checkWin = () => {
 
 }
 
-//attach an event listener to the start game button_reset
-btnReset.addEventListener('click', () => {
-  if (btnReset.textContent === "Try Again") {
-    overlay.style.display = 'none';
-    location.reload();
 
-  }
-  //make overlay dissapear
-  overlay.style.display = 'none';
-
-});
 
 //listen for the onscreen keyboard to be clicked
 qwerty.addEventListener('click', e => {
@@ -143,5 +133,44 @@ qwerty.addEventListener('click', e => {
      }
       //call checkWin function
       checkWin();
+
+});
+
+//attach an event listener to the start game button_reset
+btnReset.addEventListener('click', () => {
+  if (btnReset.textContent === 'Try Again'){
+    overlay.classList.remove("win");
+    overlay.classList.remove("lose");
+    //reset scoreboard
+    let missed = 0;
+    for (i=0; i < scoreboard.length; i+=1){
+      let newBoard = scoreboard[i].lastElementChild;
+      newBoard.src = "images/liveHeart.png";
+    }
+    //reset keyboard
+    let removeChosen = qwerty.getElementsByTagName('BUTTON');
+    for (i=0; i < removeChosen.length; i+=1){
+      if(removeChosen[i].className === "chosen") {
+        removeChosen[i].disabled = false;
+        removeChosen[i].classList.remove("chosen");
+      }
+    }
+      //reset phrase
+      const oldPhrase = phrase.firstElementChild;
+      let oldArray = oldPhrase.children;
+      for (i=0; i < oldArray.length; i = 0){
+        let child = oldArray[i];
+        oldPhrase.removeChild(child);
+      }
+
+      //call new phrase functions
+      const array = getRandomPhraseAsArray(phrases);
+      addPhraseToDisplay(array);
+      console.log(missed);
+
+
+  }
+  //make overlay dissapear
+  overlay.style.display = 'none';
 
 });
