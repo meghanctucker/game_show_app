@@ -6,7 +6,6 @@ const overlay = document.getElementById('overlay');
 const scoreboard = document.getElementsByClassName('tries');
 const letter = document.getElementsByClassName('letter');
 const show = document.getElementsByClassName('show');
-let missed = 0;
 const phrases = [
   "release the murder hornets",
   "i want to go outside",
@@ -15,7 +14,8 @@ const phrases = [
   "i love tacos"
 ];
 
-
+const resetGame = () =>{
+  let missed = 0;
 //return a random phrase from an array
 const getRandomPhraseAsArray = arr => {
   //randomly choose phrase from phrases create var to store random number based on length of phrases
@@ -90,6 +90,8 @@ const checkWin = () => {
       overlay.firstElementChild.textContent = "You've won!";
       overlay.style.display = "flex";
       btnReset.textContent = "Try Again";
+      missed = 0;
+      console.log(missed);
     //document.getElementsByClassName('win').style.display = 'block';
   }
 }
@@ -98,17 +100,16 @@ const checkWin = () => {
     overlay.firstElementChild.textContent = "You've lost";
     overlay.style.display = "flex";
     btnReset.textContent = "Try Again";
+    missed = 0;
+    console.log(missed);
     //document.getElementsByClassName('win').style.display = 'block';
   }
 //()
-
 }
-
 
 
 //listen for the onscreen keyboard to be clicked
 qwerty.addEventListener('click', e => {
-
     //use event delegation to listen only to buttons on the keyboard
     //let buttons = event.target;
      if(e.target.tagName === 'BUTTON'){
@@ -125,9 +126,10 @@ qwerty.addEventListener('click', e => {
             //remove heart here. create variable of the heart. replace the innerhtml of that thing to lostheart.png
             //add one to the missed counter
             missed += 1;
+            console.log(missed + "score");
             //missed is going to be the array # + 1 of the item in the heart scoreboard
             //get the heart scorboard array and console it
-            let heart = scoreboard[missed-1].lastElementChild;
+           let heart = scoreboard[missed-1].lastElementChild;
             heart.src = "images/lostheart.png";
         }
      }
@@ -135,6 +137,9 @@ qwerty.addEventListener('click', e => {
       checkWin();
 
 });
+}
+
+
 
 //attach an event listener to the start game button_reset
 btnReset.addEventListener('click', () => {
@@ -142,11 +147,11 @@ btnReset.addEventListener('click', () => {
     overlay.classList.remove("win");
     overlay.classList.remove("lose");
     //reset scoreboard
-    let missed = 0;
-    for (i=0; i < scoreboard.length; i+=1){
-      let newBoard = scoreboard[i].lastElementChild;
+    //let missed = 0;
+   for (i=0; i < scoreboard.length; i+=1){
+    let newBoard = scoreboard[i].lastElementChild;
       newBoard.src = "images/liveHeart.png";
-    }
+   }
     //reset keyboard
     let removeChosen = qwerty.getElementsByTagName('BUTTON');
     for (i=0; i < removeChosen.length; i+=1){
@@ -162,15 +167,14 @@ btnReset.addEventListener('click', () => {
         let child = oldArray[i];
         oldPhrase.removeChild(child);
       }
-
       //call new phrase functions
-      const array = getRandomPhraseAsArray(phrases);
-      addPhraseToDisplay(array);
-      console.log(missed);
-
-
+     //const array = getRandomPhraseAsArray(phrases);
+    //  addPhraseToDisplay(array);
+    //  console.log(missed);
   }
   //make overlay dissapear
   overlay.style.display = 'none';
-
+  resetGame();
+  missed = 0;
+  console.log(missed);
 });
