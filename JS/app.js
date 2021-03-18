@@ -113,7 +113,7 @@ const resetGame = () =>{
               missed += 1;
               //get the heart scorboard array and change image
               let heart = scoreboard[missed-1].lastElementChild;
-              heart.src = "images/lostheart.png";
+              heart.src = "images/lostHeart.png";
             }
       }
       //call checkWin function
